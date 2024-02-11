@@ -1,9 +1,12 @@
+# 1 "quicksilver.pnml"
+/* IH_Qicksilver 6.1 will dummy out several locomotives. Dummied out locos will return when Iron Horse 2.0 is released. Cargo Sprinter will return because the Iron Horse Sprinter wasn't a dual-headed locomotive. */
+# 1 "src/00_header.pnml" 1
 grf {
     grfid: "G8R\04";
     name: string(STR_GRF_NAME);
     desc: string(STR_GRF_DESC);
-    version: 12;
-    min_compatible_version: 12;
+    version: 11;
+    min_compatible_version: 11;
     param {
 		param_colour_scheme {
 		type: int;
@@ -917,3 +920,188 @@ train_width_32_px = 1;
 			}
 		}
 	}
+# 1 "quicksilver.pnml" 2
+// #include "src/cargosprinter.pnml"
+// #include "src/cyclops.pnml"
+// #include "src/double_juice.pnml"
+// #include "src/electra.pnml"
+# 1 "src/01_quicksilver.pnml" 1
+template tmpl_quicksilver_8_views(x,y){
+    [ x, y, 8, 24, -3, -15]
+    [ x+16, y, 22, 17, -16, -9]
+    [ x+48, y, 32, 12, -17, -8]
+    [ x+96, y, 22, 18, -4, -10]
+    [ x+128, y, 8, 24, -3, -11]
+    [ x+144, y, 22, 18, -16, -10]
+    [ x+176, y, 32, 12, -14, -8]
+    [ x+224, y, 22, 16, -4, -9]
+}
+
+template tmpl_vehicle_acs(x,y){
+    [ x, y, 8, 20, -3, -12]
+    [ x+16, y, 18, 14, -10, -7]
+    [ x+48, y, 29, 13, -12, -9]
+    [ x+96, y, 18, 14, -5, -7]
+    [ x+128, y, 8, 20, -3, -10]
+    [ x+144, y, 18, 14, -9, -7]
+    [ x+176, y, 29, 13, -16, -9]
+    [ x+224, y, 18, 14, -5, -6]
+}
+
+template tmpl_quicksilver_8_views_tender(x,y){
+    [ x, y, 8, 17, -3, -14]
+    [ x+16, y, 16, 15, -10, -9]
+    [ x+48, y, 19, 12, -4, -8]
+    [ x+80, y, 16, 15, 2, -7]
+    [ x+112, y, 8, 17, -3, -6]
+    [ x+128, y, 16, 15, -16, -7]
+    [ x+161, y, 19, 12, -14, -8]
+    [ x+192, y, 16, 15,  -4, -9]
+}
+
+template tmpl_quicksilver_1_views_purchase(x,y){
+    [ x, y, 51, 12, -25, -8]
+}
+
+
+spriteset (set_ihq_front_lighted,	"gfx/quicksilver_0.png") { tmpl_quicksilver_8_views(2, 2) }
+spriteset (set_ihq_rear_lighted,	"gfx/quicksilver_0.png") { tmpl_quicksilver_8_views_tender(386, 2) }
+spriteset (set_ihq_purchase,		"gfx/quicksilver_0.png") { tmpl_quicksilver_1_views_purchase(290, 2) }
+
+switch (FEAT_TRAINS, SELF, switch_articulated_ihq, extra_callback_info1) {
+1: return item_quicksilver_0_tender; return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_TRAINS, SELF, vfx_steam, [STORE_TEMP(create_effect(EFFECT_SPRITE_STEAM, 1, 0, 10), 0x100)]) {
+return 1;
+}
+
+//------------------------------------------------QUICKSILVER CODE SECTION------------------------------------------------
+
+ // Third letter is axle load; The following is my personal guidelines, not a prescribed value for axle weight classes
+ // SAbN (Wooden) is maximum is maximum 1 metric tonne/megagram, 1.102311 short tons, 1000 kg; available in 1568
+ // SAaN (Light Metal) is maximum 1 metric tonne/megagram, 1.102311 short tons, 1000 kg; available in 1758
+ // SAAN (Rail) is maximum 10 metric tonnes/megagrams, 11.02311 short tons, 10000 kg; available in (date of Stevenson's Rocket, 1828)
+ // SABN is maximum 20 metric tonnes/megagrams, 22.04623 short tons, 20000 kg; available in 1968
+ // SACN is maximum 30 metric tonnes/megagrams, 33.06934 short tons, 30000 kg
+ // SADN is maximum 40 metric tonnes/megagrams, 44.09245 short tons, 40000 kg per axle; available in 1988
+ // SAEN is maximum 50 metric tonnes/megagrams, 55.11557 short tons, 50000 kg per axle; first available in 2008, the axle load is normally 40 megagrams, but by making the trucks on the cars lighter at least 50 Mg is apparently attainable in 2023
+ // SAFN is maximum 60 or more (unlimited) axle load for future-proofing; available in 2028
+
+switch (FEAT_TRAINS, SELF, switch_quicksilver_0_speed, current_railtype) {
+	SACN: return 116;
+	SADN: return 126;
+	SAEN: return 141;
+	CB_FAILED;
+}
+
+item(FEAT_TRAINS, item_quicksilver_0_loco) {
+    property {
+        name: string(STR_quicksilver_0);
+        climates_available: bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL, CLIMATE_TOYLAND); // available in toyland?
+        introduction_date: date(2031, 08, 10);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 255;
+        reliability_decay: 1;
+        refittable_cargo_classes: bitmask();
+        non_refittable_cargo_classes: bitmask();
+        cargo_allow_refit: [];
+        cargo_disallow_refit: [];
+        cost_factor: 255; //In units of 1171 Pounds Sterling; between Resilient and Evolution in bang for your buck; an extremely expensive prototype to buy, mercury is a very rare element
+        running_cost_factor: 7; //In units of 1536 Pounds Sterling; between Resilient and Evolution in bang for your buck; all but free to run
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        speed: 125 mph;
+        misc_flags: bitmask(TRAIN_FLAG_2CC, TRAIN_FLAG_NO_BREAKDOWN_SMOKE);
+        refit_cost: 0;
+        track_type: SADN;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        power: 3500 hp;
+        running_cost_base: RUNNING_COST_STEAM;
+        dual_headed: 0;
+        cargo_capacity: 0;
+        weight: 210 ton;
+        ai_engine_rank: 0;
+        engine_class: ENGINE_CLASS_STEAM;
+        extra_power_per_wagon: 0 kW;
+        tractive_effort_coefficient: 0.1;
+        air_drag_coefficient: 0.06;
+        length: 8;
+        extra_weight_per_wagon: 0 ton;
+        bitmask_vehicle_info: 0;
+		visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_STEAM, -2, ENABLE_WAGON_POWER);
+    }
+    graphics {
+        default: set_ihq_front_lighted;
+        purchase: set_ihq_purchase;
+		additional_text: string(STR_TEXT_EXPRESS);
+        articulated_part: switch_articulated_ihq;
+		create_effect: vfx_steam;
+	//	sound_effect: SOUND_TRAIN;
+		sound_effect: sound("gfx/wardale_3.wav");
+		speed: switch_quicksilver_0_speed;
+    }
+}
+
+item(FEAT_TRAINS, item_quicksilver_0_tender) {
+    property {
+        name: string(STR_quicksilver_0);
+        climates_available: NO_CLIMATE; // available in toyland?
+        //introduction_date: date(2031, 08, 10);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 0;
+        reliability_decay: 20;
+        refittable_cargo_classes: bitmask();
+        non_refittable_cargo_classes: bitmask();
+        cargo_allow_refit: [];
+        cargo_disallow_refit: [];
+        cost_factor: 0;
+        running_cost_factor: 0;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_2CC);
+        refit_cost: 0;
+        track_type: SADN;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        power: 1 hp;
+        running_cost_base: RUNNING_COST_STEAM;
+        dual_headed: 0;
+        cargo_capacity: 0;
+        weight: 100 ton;
+        ai_engine_rank: 0;
+        engine_class: ENGINE_CLASS_STEAM;
+        extra_power_per_wagon: 0 kW;
+        tractive_effort_coefficient: 0.1;
+        air_drag_coefficient: 0.06;
+        length: 4.75;
+        extra_weight_per_wagon: 0 ton;
+        bitmask_vehicle_info: 0;
+    }
+    graphics {
+        default: set_ihq_rear_lighted;
+        purchase: set_ihq_rear_lighted;
+		additional_text: string(STR_TEXT_EXPRESS);
+		speed: switch_quicksilver_0_speed;
+    }
+}
+
+//------------------------------------------------QUICKSILVER CODE SECTION------------------------------------------------
+
+//engine_override(4341121F);
+//item(FEAT_TRAINS, resilient) {
+//    property {
+//        
+//    }
+//    graphics {
+//        
+//    }
+//}
+# 1 "quicksilver.pnml" 2
+//#include "src/00_quicksilver_test.pnml"
+
+/* DO NOT INCLUDE - NEEDS BETTER SPRITES */
+// #include "src/badger.pnml"
+// #include "src/broken_nose.pnml"
+// #include "src/companion_cube.pnml"
+// #include "src/thames.pnml"
+
+/* DO NOT INCLUDE - ROAD SUBWAYS ARE BETTER */
+// #include "src/pneumatic_tube.pnml"
