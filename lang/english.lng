@@ -1,0 +1,58 @@
+﻿##grflangid 0x01
+STR_GRF_NAME													:Iron Horse 3 Quicksilver Add-On 0.1
+STR_GRF_DESC													:{}{ORANGE}Iron Horse {SILVER}"Quicksilver"{ORANGE} Add-On{}{}{BLACK}GPL v2, graphics by Pikkabird, coded by Gwyd. Updated by Gadg8eer.
+STR_PARAM_COLOUR_SCHEME_NAME									:Colour scheme
+STR_PARAM_COLOUR_SCHEME_DESC									:Select the type of colour scheme to use
+STR_PARAM_COLOUR_SCHEME_1CC										:One company color
+STR_PARAM_COLOUR_SCHEME_2CC										:Two company colors
+STR_PARAM_COLOUR_SCHEME_REAL									:Real-world colors
+STR_PARAM_AXLE_WEIGHT_NAME										:Axle weight scheme
+STR_PARAM_AXLE_WEIGHT_DESC										:Select the system of axle weights provided by your railtype newgrf
+STR_PARAM_AXLE_WEIGHT_NONE										:(Default) Innsbruck 2022 Convention
+STR_PARAM_AXLE_WEIGHT_STANDARD									:Full 2012 Standard
+STR_PARAM_AXLE_WEIGHT_PONY										:Iron Horse 3 "Iron Pony"
+STR_PARAM_AXLE_WEIGHT_CLYDESDALE								:Iron Horse 3 "Iron Clydesdale" Fork
+STR_ERROR_AXLE_WEIGHT											:Uh oh! Looks like you encountered a bug! This message is to reveal that the result of setting the axle weight parameter to the default (Innsbruck 2022 Convention) option has caused this error. 
+
+STR_TEXT_JOKER													:{BLACK}Role: {GOLD}Joker
+STR_TEXT_EXPRESS												:{BLACK}Role: {GOLD}General Purpose / Express
+
+STR_NAME_badger_0												:Badger (Electric)
+STR_ADDITIONAL_TEXT_badger_0									:Based on BR Class 89
+STR_CANNOT_START_badger_0										:
+STR_CANNOT_ATTACH_OTHER_badger_0								:
+
+STR_NAME_broken_nose_0											:Broken Nose (Electric)
+STR_ADDITIONAL_TEXT_broken_nose_0								:Based on BR Class 22/SNCF Class BB 22200
+STR_CANNOT_START_broken_nose_0									:
+STR_CANNOT_ATTACH_OTHER_broken_nose_0							:
+
+STR_NAME_cargo_sprinter_0										:Cargo Sprinter (Diesel)
+STR_ADDITIONAL_TEXT_cargo_sprinter_0							:Based on CargoSprinter
+STR_CANNOT_START_cargo_sprinter_0								:
+STR_CANNOT_ATTACH_OTHER_cargo_sprinter_0						:
+
+STR_NAME_cyclops_0												:Cyclops (Diesel)
+STR_ADDITIONAL_TEXT_cyclops_0									:
+STR_CANNOT_START_cyclops_0										:
+STR_CANNOT_ATTACH_OTHER_cyclops_0								:
+
+STR_NAME_double_juice_0											:Double Juice (Electro-Diesel)
+STR_ADDITIONAL_TEXT_double_juice_0								:Based on BR Class 88
+STR_CANNOT_START_double_juice_0									:
+STR_CANNOT_ATTACH_OTHER_double_juice_0							:
+
+STR_NAME_electra_0												:Electra (Electric)
+STR_ADDITIONAL_TEXT_electra_0									:
+STR_CANNOT_START_electra_0										:
+STR_CANNOT_ATTACH_OTHER_electra_0								:
+
+STR_NAME_pneumatic_tube_0										:Pneumatic Tube (Metro)
+STR_ADDITIONAL_TEXT_pneumatic_tube_0							:Futuristic double-decker vacuum metro train
+STR_CANNOT_START_pneumatic_tube_0								:
+STR_CANNOT_ATTACH_OTHER_pneumatic_tube_0						:
+
+STR_quicksilver_0												:4-6-2 Quicksilver (Thermonuclear)
+STR_ADDITIONAL_TEXT_quicksilver_0								:A thermonuclear steam engine using liquid mercury as coolant, based on streamlined steam locomotives of the 1930's like LNER A4, LMS Coronation, NYC Mercury K-5b, etc.
+STR_CANNOT_START_quicksilver_0									:
+STR_CANNOT_ATTACH_OTHER_quicksilver_0							:

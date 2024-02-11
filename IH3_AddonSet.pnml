@@ -1,0 +1,17 @@
+/* IH_Qicksilver 6.1 will dummy out several locomotives. Dummied out locos will return when Iron Horse 2.0 is released. Cargo Sprinter will return because the Iron Horse Sprinter wasn't a dual-headed locomotive. */
+#include "src/00_header.pnml"
+// #include "src/cargosprinter.pnml"
+// #include "src/cyclops.pnml"
+// #include "src/double_juice.pnml"
+// #include "src/electra.pnml"
+#include "src/01_quicksilver.pnml"
+//#include "src/00_quicksilver_test.pnml"
+
+/* DO NOT INCLUDE - NEEDS BETTER SPRITES */
+// #include "src/badger.pnml"
+// #include "src/broken_nose.pnml"
+// #include "src/companion_cube.pnml"
+// #include "src/thames.pnml"
+
+/* DO NOT INCLUDE - ROAD SUBWAYS ARE BETTER */
+// #include "src/pneumatic_tube.pnml"

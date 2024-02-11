@@ -1,0 +1,2 @@
+python nml_patcher.py -f "IH_AddonSet.pnml" -o "IH_AddonSet.nml"
+nmlc IH_AddonSet.nml -o IH_AddonSet.grf

@@ -1,0 +1,34 @@
+//------------------------------------------------RAILTYPER LIST SECTION------------------------------------------------
+
+/*
+ * *********************
+ * Define railtype table
+ * *********************
+ */
+
+ railtypetable {
+	PLAN,
+	LFTD,
+	DIRT,
+	TRKBED: [LFTD, DIRT],
+	UTIL,
+	WIRE,
+	TELE,
+	UPOLES: [UTIL, WIRE, TELE],
+	WGWY,
+	WWAY,
+	WAGON: [WGWY, WWAY],
+	LIHT,
+	LTRL,
+	LIGHT: [LIHT, LTRL],
+	NAAN,
+	NAAE,
+	NBAN,
+	NBAE,
+	NG60,
+	NG6E,
+	VOLO,
+	VOLE,
+	VOLOS: [NG6R, NG60, NAAN, RAIL],
+	EVOLOS: [NG6R, NG60, NAAN, NAAE, RAIL, ELRL],
+	}

@@ -1,0 +1,298 @@
+# 1 "IH2_AddonSet.pnml"
+/* IH_Qicksilver 6.1 will dummy out several locomotives. Dummied out locos will return when Iron Horse 2.0 is released. Cargo Sprinter will return because the Iron Horse Sprinter wasn't a dual-headed locomotive. */
+# 1 "src/00_header.pnml" 1
+grf {
+    grfid: "G8R\04";
+    name: string(STR_GRF_NAME);
+    desc: string(STR_GRF_DESC);
+    version: 9;
+    min_compatible_version: 7;
+    param {
+       colour_scheme {
+type: int;
+name: string(STR_PARAM_COLOUR_SCHEME_NAME);
+desc: string(STR_PARAM_COLOUR_SCHEME_DESC);
+min_value: 0;
+max_value: 2;
+def_value: 1;
+names: {
+    0: string(STR_PARAM_COLOUR_SCHEME_1CC);
+    1: string(STR_PARAM_COLOUR_SCHEME_2CC);
+    2: string(STR_PARAM_COLOUR_SCHEME_REAL);
+};
+        }
+    }
+}
+
+/*
+ * *********************
+ * Define railtype table
+ * *********************
+ */
+
+ railtypetable {
+	RAIL,
+	ELRL,
+	MONO,
+	MGLV,
+	PLAN,
+	LFTD,
+	DIRT,
+	TRKBED: [LFTD, DIRT],
+	UTIL,
+	WIRE,
+	TELE,
+	UPOLES: [UTIL, WIRE, TELE],
+	WGWY,
+	WWAY,
+	WAGON: [WGWY, WWAY],
+	LIHT,
+	LTRL,
+	LIGHT: [LIHT, LTRL],
+	NAAN,
+	NAAE,
+	NBAN,
+	NBAE,
+	NG60,
+	NG6E,
+	VOLO,
+	VOLE,
+	VOLOS: [NG6R, NG60, NAAN, RAIL],
+	EVOLOS: [NG6R, NG60, NAAN, NAAE, RAIL, ELRL],
+	}
+ 
+ /*
+ * ********************************************
+ * Define cargo translation table and refits
+ * ********************************************
+ */
+ 
+ cargotable {
+//Default cargos
+   PASS, MAIL, COAL, FOOD, GOLD, GOOD, GRAI, IORE, LVST, OIL_, PAPR, STEL, VALU, WHEA, WOOD,
+
+//Tropical cargos
+   CORE, DIAM, FRUT, MAIZ, RUBR, WATR, 
+
+//ECS
+   AORE, BDMT, BRCK, CERA, CERE, CMNT, DYES, FERT, FICR, FISH, GLAS, LIME, OLSD, PETR, PLAS, POTA, RFPR, SAND, SULP, TOUR, VEHI, WDPR, WOOL, 
+
+//FIRS
+   BEER, CLAY, ENSP, FMSP, FRVG, GRVL, MILK, MNSP, PHOS, PORE, RCYC, SCMT, SGBT, SGCN, JAVA, COPR, SUGR,
+ }
+ 
+ /*
+ * ********************************************
+ * Define vehicle views
+ * ********************************************
+ */
+
+template spriteset_template_double_juice(y, adjust_xoffs) {
+	//[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
+	[60,        y,          8,         25,          -3, -17 ]
+	[76,        y,          22,        22,          -10, -15 ]
+	[107,       y,          32,        15,          -8, -11 ]
+	[156,       y,          22,        22,          -4, -13 ]
+	[188,       y,          8,         25,          -3, -10 ]
+	[204,       y,          22,        22,          -17, -12 ]
+	[235,       y,          32,        15,          -24 + adjust_xoffs, -11 ]
+	[284,       y,          22,        22,          -10, -16 ]
+}
+
+template spriteset_template_purchase_double_juice() {
+	//[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
+	[60,    10, 1, 1, 0, 0]
+	[60,    10, 1, 1, 0, 0]
+	[107,   10, 1, 1, 0, 0]
+	[60,    10, 1, 1, 0, 0]
+	[60,    10, 1, 1, 0, 0]
+	[60,    10, 1, 1, 0, 0]
+	[316,   10, 32, 15, -16, -10 ]
+	[60,    10, 1, 1, 0, 0]
+}
+
+template template_electrostar(x,y){
+    //left_x, upper_y, width, height, offset_x, offset_y
+    [ x, y, 8, 24, -3, -8]
+    [ x+9, y, 22, 19, -14, -11]
+    [ x+32, y, 32, 15, -16, -11]
+    [ x+65, y, 22, 19, -6, -11]
+    [ x+88, y, 8, 24, -3, -8]
+    [ x+97, y, 22, 19, -16, -11]
+    [ x+120, y, 32, 15, -16, -11]
+    [ x+153, y, 22, 19, -7, -11]
+}
+
+template tmpl_vehicle_1_views_purchase_acs(x,y){
+    [ x, y, 41, 13, -20, -8]
+}
+
+
+traininfo_y_offset = 2;
+train_width_32_px = 1;
+# 1 "IH2_AddonSet.pnml" 2
+// #include "src/cargosprinter.pnml"
+// #include "src/cyclops.pnml"
+// #include "src/double_juice.pnml"
+// #include "src/electra.pnml"
+# 1 "src/01_quicksilver.pnml" 1
+template tmpl_quicksilver_8_views(x,y){
+    [ x, y, 8, 24, -3, -15]
+    [ x+16, y, 22, 17, -16, -9]
+    [ x+48, y, 32, 12, -17, -8]
+    [ x+96, y, 22, 18, -4, -10]
+    [ x+128, y, 8, 24, -3, -11]
+    [ x+144, y, 22, 18, -16, -10]
+    [ x+176, y, 32, 12, -14, -8]
+    [ x+224, y, 22, 16, -4, -9]
+}
+
+template tmpl_vehicle_acs(x,y){
+    [ x, y, 8, 20, -3, -12]
+    [ x+16, y, 18, 14, -10, -7]
+    [ x+48, y, 29, 13, -12, -9]
+    [ x+96, y, 18, 14, -5, -7]
+    [ x+128, y, 8, 20, -3, -10]
+    [ x+144, y, 18, 14, -9, -7]
+    [ x+176, y, 29, 13, -16, -9]
+    [ x+224, y, 18, 14, -5, -6]
+}
+
+template tmpl_quicksilver_8_views_tender(x,y){
+    [ x, y, 8, 17, -3, -14]
+    [ x+16, y, 16, 15, -10, -9]
+    [ x+48, y, 19, 12, -4, -8]
+    [ x+80, y, 16, 15, 2, -7]
+    [ x+112, y, 8, 17, -3, -6]
+    [ x+128, y, 16, 15, -16, -7]
+    [ x+161, y, 19, 12, -14, -8]
+    [ x+192, y, 16, 15,  -4, -9]
+}
+
+template tmpl_quicksilver_1_views_purchase(x,y){
+    [ x, y, 51, 12, -25, -8]
+}
+
+
+spriteset (set_ihq_front_lighted,	"gfx/quicksilver_0.png") { tmpl_quicksilver_8_views(2, 2) }
+spriteset (set_ihq_rear_lighted,	"gfx/quicksilver_0.png") { tmpl_quicksilver_8_views_tender(386, 2) }
+spriteset (set_ihq_purchase,		"gfx/quicksilver_0.png") { tmpl_quicksilver_1_views_purchase(290, 2) }
+
+switch (FEAT_TRAINS, SELF, switch_articulated_ihq, extra_callback_info1)
+{ 1: return item_quicksilver_0_tender; return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_TRAINS, SELF, vfx_steam, [STORE_TEMP(create_effect(EFFECT_SPRITE_STEAM, 1, 0, 10), 0x100)]) {
+return 1;
+}
+
+//------------------------------------------------QUICKSILVER CODE SECTION------------------------------------------------
+
+item(FEAT_TRAINS, item_quicksilver_0_loco) {
+    property {
+        name: string(STR_quicksilver_0);
+        climates_available: bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL, CLIMATE_TOYLAND); // available in toyland?
+        introduction_date: date(2010, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 45;
+        reliability_decay: 20;
+        refittable_cargo_classes: bitmask();
+        non_refittable_cargo_classes: bitmask();
+        cargo_allow_refit: [];
+        cargo_disallow_refit: [];
+        cost_factor: 24; //In units of 1171 Pounds Sterling; between Resilient and Evolution 
+        running_cost_factor: 255; //In units of 1536 Pounds Sterling; between Resilient and Evolution
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        speed: 125 mph;
+        misc_flags: bitmask(TRAIN_FLAG_2CC);
+        refit_cost: 0;
+        track_type: RAIL;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        power: 2959 hp;
+        running_cost_base: RUNNING_COST_STEAM;
+        dual_headed: 0;
+        cargo_capacity: 0;
+        weight: 102 ton;
+        ai_engine_rank: 0;
+        engine_class: ENGINE_CLASS_STEAM;
+        extra_power_per_wagon: 0 kW;
+        tractive_effort_coefficient: 0.1;
+        air_drag_coefficient: 0.06;
+        length: 8;
+        extra_weight_per_wagon: 0 ton;
+        bitmask_vehicle_info: 0;
+		visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_STEAM, -2, ENABLE_WAGON_POWER);
+    }
+    graphics {
+        default: set_ihq_front_lighted;
+        purchase: set_ihq_purchase;
+		additional_text: string(STR_TEXT_EXPRESS);
+        articulated_part: switch_articulated_ihq;
+		create_effect: vfx_steam;
+	//	sound_effect: SOUND_TRAIN;
+	//	sound_effect: sound("gfx/wardale_3.wav");
+    }
+}
+
+item(FEAT_TRAINS, item_quicksilver_0_tender) {
+    property {
+        name: string(STR_quicksilver_0);
+        climates_available: NO_CLIMATE; // available in toyland?
+        introduction_date: date(1935, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 0;
+        reliability_decay: 20;
+        refittable_cargo_classes: bitmask();
+        non_refittable_cargo_classes: bitmask();
+        cargo_allow_refit: [];
+        cargo_disallow_refit: [];
+        cost_factor: 0;
+        running_cost_factor: 0;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_2CC);
+        refit_cost: 0;
+        track_type: RAIL;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        power: 1 hp;
+        running_cost_base: RUNNING_COST_STEAM;
+        dual_headed: 0;
+        cargo_capacity: 0;
+        weight: 65 ton;
+        ai_engine_rank: 0;
+        engine_class: ENGINE_CLASS_STEAM;
+        extra_power_per_wagon: 0 kW;
+        tractive_effort_coefficient: 0.1;
+        air_drag_coefficient: 0.06;
+        length: 4.75;
+        extra_weight_per_wagon: 0 ton;
+        bitmask_vehicle_info: 0;
+    }
+    graphics {
+        default: set_ihq_rear_lighted;
+        purchase: set_ihq_rear_lighted;
+		additional_text: string(STR_TEXT_EXPRESS);
+    }
+}
+
+//------------------------------------------------QUICKSILVER CODE SECTION------------------------------------------------
+
+//engine_override(4341121F);
+//item(FEAT_TRAINS, resilient) {
+//    property {
+//        
+//    }
+//    graphics {
+//        
+//    }
+//}
+# 1 "IH2_AddonSet.pnml" 2
+//#include "src/01_quicksilver_test.pnml"
+
+/* DO NOT INCLUDE - NEEDS BETTER SPRITES */
+// #include "src/badger.pnml"
+// #include "src/broken_nose.pnml"
+// #include "src/companion_cube.pnml"
+// #include "src/thames.pnml"
+
+/* DO NOT INCLUDE - ROAD SUBWAYS ARE BETTER */
+// #include "src/pneumatic_tube.pnml"

@@ -1,0 +1,145 @@
+template tmpl_quicksilver_8_views(x,y){
+    [ x, y, 8, 24, -3, -12]
+    [ x+16, y, 22, 17, -16, -9]
+    [ x+48, y, 32, 12, -17, -8]
+    [ x+96, y, 22, 18, -4, -10]
+    [ x+128, y, 8, 24, -3, -14]
+    [ x+144, y, 22, 18, -14, -11]
+    [ x+176, y, 32, 12, -14, -8]
+    [ x+224, y, 22, 16, -4, -9]
+}
+
+template tmpl_vehicle_acs(x,y){
+    [ x, y, 8, 20, -3, -12]
+    [ x+16, y, 18, 14, -10, -7]
+    [ x+48, y, 29, 13, -12, -9]
+    [ x+96, y, 18, 14, -5, -7]
+    [ x+128, y, 8, 20, -3, -10]
+    [ x+144, y, 18, 14, -9, -7]
+    [ x+176, y, 29, 13, -16, -9]
+    [ x+224, y, 18, 14, -5, -7]
+}
+
+template tmpl_quicksilver_8_views_tender(x,y){
+    [ x, y, 8, 16, -3, -11]
+    [ x+16, y, 16, 15, -10, -10]
+    [ x+48, y, 19, 12, -4, -8]
+    [ x+80, y, 16, 15, 2, -7]
+    [ x+112, y, 8, 16, -3, -7]
+    [ x+128, y, 16, 15, -14, -8]
+    [ x+161, y, 19, 12, -14, -8]
+    [ x+192, y, 16, 14,  -4, -10]
+}
+
+template tmpl_quicksilver_1_views_purchase(x,y){
+    [ x, y, 51, 12, -25, -8]
+}
+
+
+spriteset (set_ihq_front_lighted,	"gfx/quicksilver_0.png") { tmpl_quicksilver_8_views(2, 2) }
+spriteset (set_ihq_rear_lighted,	"gfx/quicksilver_0.png") { tmpl_quicksilver_8_views_tender(386, 2) }
+spriteset (set_ihq_purchase,		"gfx/quicksilver_0.png") { tmpl_quicksilver_1_views_purchase(290, 2) }
+
+switch (FEAT_TRAINS, SELF, switch_articulated_ihq, extra_callback_info1)
+{ 1: return item_quicksilver_0_tender; return CB_RESULT_NO_MORE_ARTICULATED_PARTS;
+}
+
+switch(FEAT_TRAINS, SELF, vfx_steam, [STORE_TEMP(create_effect(EFFECT_SPRITE_STEAM, 1, 0, 10), 0x100)]) {
+return 1;
+}
+
+//------------------------------------------------QUICKSILVER CODE SECTION------------------------------------------------
+
+ // Third letter is axle load; The following is my personal guidelines, not a prescribed value for axle weight classes
+ // SAbN (Wooden) is maximum is maximum 1 metric tonne/megagram, 1.102311 short tons, 1000 kg; available in 1568
+ // SAaN (Light Metal) is maximum 1 metric tonne/megagram, 1.102311 short tons, 1000 kg; available in 1758
+ // SAAN (Rail) is maximum 10 metric tonnes/megagrams, 11.02311 short tons, 10000 kg; available in 1828
+ // SABN is maximum 20 metric tonnes/megagrams, 22.04623 short tons, 20000 kg; available in 1938
+ // SACN maximum 30 metric tonnes/megagrams, 33.06934 short tons, 30000 kg; available in 1968
+ // SADN is maximum 40 metric tonnes/megagrams, 44.09245 short tons, 40000 kg per axle; available in 1988
+ // SAEN is maximum 50 metric tonnes/megagrams, 55.11557 short tons, 50000 kg per axle; first available in 2008, the axle load is normally 40 megagrams, but by making the trucks on the cars lighter at least 50 Mg is apparently attainable in 2023
+ // SAFN is maximum 60 or more (unlimited) axle load for future-proofing; available in 2028
+
+item(FEAT_TRAINS, item_quicksilver_0_loco) {
+    property {
+        name: string(STR_quicksilver_0);
+        climates_available: bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, CLIMATE_TROPICAL, CLIMATE_TOYLAND); // available in toyland?
+        introduction_date: date(1935, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 45;
+        reliability_decay: 20;
+        refittable_cargo_classes: bitmask();
+        non_refittable_cargo_classes: bitmask();
+        cargo_allow_refit: [];
+        cargo_disallow_refit: [];
+        cost_factor: 1;
+        running_cost_factor: 1;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        speed: 175 km/h;
+        misc_flags: bitmask(TRAIN_FLAG_2CC);
+        refit_cost: 0;
+        track_type: SABN;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        power: 2000 hp;
+        running_cost_base: RUNNING_COST_ROADVEH;
+        dual_headed: 0;
+        cargo_capacity: 0;
+        weight: 102 ton;
+        ai_engine_rank: 0;
+        engine_class: ENGINE_CLASS_STEAM;
+        extra_power_per_wagon: 0 kW;
+        tractive_effort_coefficient: 0.1;
+        air_drag_coefficient: 0.06;
+        length: 8;
+        extra_weight_per_wagon: 0 ton;
+        bitmask_vehicle_info: 0;
+		visual_effect_and_powered: visual_effect_and_powered(VISUAL_EFFECT_STEAM, 0, ENABLE_WAGON_POWER);
+    }
+    graphics {
+        default: set_ihq_front_lighted;
+        purchase: set_ihq_purchase;
+        articulated_part: switch_articulated_ihq;
+		create_effect: vfx_steam;
+		sound_effect: sound("gfx/crosschime.wav", SOUND_EVENT_START);
+    }
+}
+
+item(FEAT_TRAINS, item_quicksilver_0_tender) {
+    property {
+        name: string(STR_quicksilver_0);
+        climates_available: NO_CLIMATE; // available in toyland?
+        introduction_date: date(1935, 1, 1);
+        model_life: VEHICLE_NEVER_EXPIRES;
+        vehicle_life: 0;
+        reliability_decay: 20;
+        refittable_cargo_classes: bitmask();
+        non_refittable_cargo_classes: bitmask();
+        cargo_allow_refit: [];
+        cargo_disallow_refit: [];
+        cost_factor: 0;
+        running_cost_factor: 0;
+        sprite_id: SPRITE_ID_NEW_TRAIN;
+        misc_flags: bitmask(TRAIN_FLAG_2CC);
+        refit_cost: 0;
+        track_type: SABN;
+        ai_special_flag: AI_FLAG_PASSENGER;
+        power: 1 hp;
+        running_cost_base: RUNNING_COST_STEAM;
+        dual_headed: 0;
+        cargo_capacity: 0;
+        weight: 65 ton;
+        ai_engine_rank: 0;
+        engine_class: ENGINE_CLASS_STEAM;
+        extra_power_per_wagon: 0 kW;
+        tractive_effort_coefficient: 0.1;
+        air_drag_coefficient: 0.06;
+        length: 4.75;
+        extra_weight_per_wagon: 0 ton;
+        bitmask_vehicle_info: 0;
+    }
+    graphics {
+        default: set_ihq_rear_lighted;
+        purchase: set_ihq_rear_lighted;
+			
+    }
+}

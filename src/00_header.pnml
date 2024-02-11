@@ -1,0 +1,919 @@
+grf {
+    grfid: "G8R\04";
+    name: string(STR_GRF_NAME);
+    desc: string(STR_GRF_DESC);
+    version: 11;
+    min_compatible_version: 11;
+    param {
+		param_colour_scheme {
+		type: int;
+		name: string(STR_PARAM_COLOUR_SCHEME_NAME);
+		desc: string(STR_PARAM_COLOUR_SCHEME_DESC);
+		min_value: 0;
+		max_value: 2;
+		def_value: 1;
+			names: {
+				0: string(STR_PARAM_COLOUR_SCHEME_1CC);
+				1: string(STR_PARAM_COLOUR_SCHEME_2CC);
+				2: string(STR_PARAM_COLOUR_SCHEME_REAL);
+			};
+		}
+	}
+    param {
+		param_axle_weight {
+		type: int;
+		name: string(STR_PARAM_AXLE_WEIGHT_NAME);
+		desc: string(STR_PARAM_AXLE_WEIGHT_DESC);
+		min_value: 0;
+		max_value: 2;
+		def_value: 1;
+			names: {
+				0: string(STR_PARAM_AXLE_WEIGHT_NONE);
+				1: string(STR_PARAM_AXLE_WEIGHT_STANDARD);
+				2: string(STR_PARAM_AXLE_WEIGHT_PONY);
+				3: string(STR_PARAM_AXLE_WEIGHT_CLYDESDALE);
+			};
+        }
+    }
+}
+
+/*
+ * *********************
+ * Define railtype table
+ * *********************
+ */
+ 
+ // Third letter is axle load; The following is my personal guidelines, not a prescribed value for axle weight classes
+ // SAbN (Wooden) is maximum is maximum 1 metric tonne/megagram, 1.102311 short tons, 1000 kg; available in 1???
+ // SAaN (Light Metal) is maximum 1 metric tonne/megagram, 1.102311 short tons, 1000 kg; available in 1???
+ // SAAN (Rail) is maximum 10 metric tonnes/megagrams, 11.02311 short tons, 10000 kg; available in (date of Stevenson's Rocket, 18XX)
+ // SABN is maximum 20 metric tonnes/megagrams, 22.04623 short tons, 20000 kg; available in 1968
+ // The non-existant track that would go here would be maximum 30 metric tonnes/megagrams, 33.06934 short tons, 30000 kg
+ // SACN is maximum 40 metric tonnes/megagrams, 44.09245 short tons, 40000 kg per axle; available in 1988
+ // SADN is maximum 50 metric tonnes/megagrams, 55.11557 short tons, 50000 kg per axle; first available in 2008, the axle load is normally 40 megagrams, but by making the trucks on the cars lighter at least 50 Mg is apparently attainable in 2023
+ // SAEN is maximum 60 or more (unlimited) axle load for future-proofing; available in 2028
+
+ railtypetable {
+//--- Wagonway
+	WWAY, WGWY,
+	SAbN,
+//--- Prototype Rail
+ 	LTRL, LIHT,
+	SAaN,
+//--- Rail
+	RAIL,
+	SAAN, SABN, SACN, SADN, SAEN, SAFN,
+//	SBAN, SBBN, SBCN, SBDN, SBEN, SBFN,
+//	SCAN, SCBN, SCCN, SCDN, SCEN, SCFN,
+//	SDAN, SDBN, SDCN, SDDN, SDEN, SDFN,
+//	SEAN, SEBN, SECN, SEDN, SEEN, SEFN,
+//	SFAN, SFBN, SFCN, SFDN, SFEN, SFFN,
+//	SGAN, SGBN, SGCN, SGDN, SGEN, SGFN,
+//	SHAN, SHBN, SHCN, SHDN, SHEN, SHFN,
+//--- Electrified Rail
+	ELRL,
+	SAAE, SABE, SACE, SADE, SAEE, SAFE,
+//	SBAE, SBBE, SBCE, SBDE, SBEE, SBFE,
+//	SCAE, SCBE, SCCE, SCDE, SCEE, SCFE,
+//	SDAE, SDBE, SDCE, SDDE, SDEE, SDFE,
+//	SEAE, SEBE, SECE, SEDE, SEEE, SEFE,
+//	SFAE, SFBE, SFCE, SFDE, SFEE, SFFE,
+//	SGAE, SGBE, SGCE, SGDE, SGEE, SGFE,
+//	SHAE, SHBE, SHCE, SHDE, SHEE, SHFE,
+//--- Third Rail
+	//SAA3, SAB3, SAC3, SAD3, SAE3,
+//--- Third Rail and Catenary
+//	SAAZ, SABZ, SACZ, SADZ, SAEZ,
+//	SAA4, SAB4, SAC4, SAD4, SAE4,
+//	SAAY, SABY, SACY, SADY, SAEY,
+//	SAAT, SABT, SACT, SADT, SAET,
+//	SAA3, SAB3, SAC3, SAD3, SAE3,
+//	SAAD, SABD, SACD, SADD, SAED,
+//	SAAd, SABd, SACd, SADd, SAEd,
+//	SAAA, SABA, SACA, SADA, SAEA,
+//	SAAa, SABa, SACa, SADa, SAEa,
+	sAAN, sABN, sACN, sADN, sAEN,
+	sAAE, sABE, sACE, sADE, saEE//,
+//--- Futuristic Types
+//	MONO,
+//	MGLV, 
+
+
+//	VOLO,
+//	VOLE,
+//	VOLOS: [NG6R, NG60, NAAN, RAIL],
+//	EVOLOS: [NG6R, NG60, NAAN, NAAE, RAIL, ELRL],
+	}
+ 
+ /*
+ * ********************************************
+ * Define cargo translation table and refits
+ * ********************************************
+ */
+ 
+ cargotable {
+//Default cargos
+   PASS, MAIL, COAL, FOOD, GOLD, GOOD, GRAI, IORE, LVST, OIL_, PAPR, STEL, VALU, WHEA, WOOD,
+
+//Tropical cargos
+   CORE, DIAM, FRUT, MAIZ, RUBR, WATR, 
+
+//ECS
+   AORE, BDMT, BRCK, CERA, CERE, CMNT, DYES, FERT, FICR, FISH, GLAS, LIME, OLSD, PETR, PLAS, POTA, RFPR, SAND, SULP, TOUR, VEHI, WDPR, WOOL, 
+
+//FIRS
+   BEER, CLAY, ENSP, FMSP, FRVG, GRVL, MILK, MNSP, PHOS, PORE, RCYC, SCMT, SGBT, SGCN, JAVA, COPR, SUGR,
+ }
+ 
+ /*
+ * ********************************************
+ * Define vehicle views
+ * ********************************************
+ */
+
+template spriteset_template_double_juice(y, adjust_xoffs) {
+	//[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
+	[60,        y,          8,         25,          -3, -17 ]
+	[76,        y,          22,        22,          -10, -15 ]
+	[107,       y,          32,        15,          -8, -11 ]
+	[156,       y,          22,        22,          -4, -13 ]
+	[188,       y,          8,         25,          -3, -10 ]
+	[204,       y,          22,        22,          -17, -12 ]
+	[235,       y,          32,        15,          -24 + adjust_xoffs, -11 ]
+	[284,       y,          22,        22,          -10, -16 ]
+}
+
+template spriteset_template_purchase_double_juice() {
+	//[left_x,  upper_y,    width,      height,     offset_x,      offset_y]
+	[60,    10, 1, 1, 0, 0]
+	[60,    10, 1, 1, 0, 0]
+	[107,   10, 1, 1, 0, 0]
+	[60,    10, 1, 1, 0, 0]
+	[60,    10, 1, 1, 0, 0]
+	[60,    10, 1, 1, 0, 0]
+	[316,   10, 32, 15, -16, -10 ]
+	[60,    10, 1, 1, 0, 0]
+}
+
+template template_electrostar(x,y){
+    //left_x, upper_y, width, height, offset_x, offset_y
+    [ x, y, 8, 24, -3, -8]
+    [ x+9, y, 22, 19, -14, -11]
+    [ x+32, y, 32, 15, -16, -11]
+    [ x+65, y, 22, 19, -6, -11]
+    [ x+88, y, 8, 24, -3, -8]
+    [ x+97, y, 22, 19, -16, -11]
+    [ x+120, y, 32, 15, -16, -11]
+    [ x+153, y, 22, 19, -7, -11]
+}
+
+template tmpl_vehicle_1_views_purchase_acs(x,y){
+    [ x, y, 41, 13, -20, -8]
+}
+
+
+traininfo_y_offset = 2;
+train_width_32_px = 1;
+
+//----------
+
+ // Third letter is axle load; The following is my personal guidelines, not a prescribed value for axle weight classes
+ // SAbN (Wooden) is maximum is maximum 1 metric tonne/megagram, 1.102311 short tons, 1000 kg; available in 1568
+ // SAaN (Light Metal) is maximum 1 metric tonne/megagram, 1.102311 short tons, 1000 kg; available in 1758
+ // SAAN (Rail) is maximum 10 metric tonnes/megagrams, 11.02311 short tons, 10000 kg; available in (date of Stevenson's Rocket, 1828)
+ // SABN is maximum 20 metric tonnes/megagrams, 22.04623 short tons, 20000 kg; available in 1968
+ // SACN is maximum 30 metric tonnes/megagrams, 33.06934 short tons, 30000 kg
+ // SADN is maximum 40 metric tonnes/megagrams, 44.09245 short tons, 40000 kg per axle; available in 1988
+ // SAEN is maximum 50 metric tonnes/megagrams, 55.11557 short tons, 50000 kg per axle; first available in 2008, the axle load is normally 40 megagrams, but by making the trucks on the cars lighter at least 50 Mg is apparently attainable in 2023
+ // SAFN is maximum 60 or more (unlimited) axle load for future-proofing; available in 2028
+
+	if ((param_axle_weight == 0 && loading_stage == LOADING_STAGE_RESERVE)) {
+		item(FEAT_RAILTYPES, railtype_2022con_standard_gauge_rail) {
+			property {
+				label:							"RAIL";
+			//-- Railtypes that locomotives of this railtype can be pulled over by an electric locomotive;
+			//-- If a railtype is also listed in "powered_railtype_list", this locomotive is primarily meant for that railtype and can travel on that railtype under its own power
+				compatible_railtype_list:		[
+											//-- Standard Guage Rail, at least 
+											//	"RAIL",
+												"SAAN", "SAAE", "SAA3", "SAAZ", "SAA4", "SAAY", "SAAT", "SAAD", "SAAd", "SAAA", "SAAa",
+												"SRAN", "SRAE", "SRAT",
+												"sAAN", "sAAE",
+												"sSFt", "sUFt", "skFt",
+												"sdFN", "scFN", "siFN", "spFN",
+												"sdFE", "scFE", "siFE", "spFE"
+												];
+			//-- Railtypes that locomotives of this railtype can travel on under its own power;
+			//-- If the locomotive is not electric, all railtypes listed in "compatible_railtype_list" must be listed here as well
+				powered_railtype_list:			[
+											//-- Standard Guage Rail, at least 
+												"RAIL",
+												"SAAN", "SAAE", "SAA3", "SAAZ", "SAA4", "SAAY", "SAAT", "SAAD", "SAAd", "SAAA", "SAAa",
+												"SRAN", "SRAE", "SRAT",
+												"sAAN", "sAAE",
+												"sSFt", "sUFt", "skFt",
+												"sdFN", "scFN", "siFN", "spFN",
+												"sdFE", "scFE", "siFE", "spFE"
+												];
+			//-- Railtypes that locomotives of which can be purchased in the depots of this railtype;
+			//-- Use if it makes sense for two depots to be completely interchangable;
+				alternative_railtype_list:			[
+											//-- Standard Guage Rail, at least 
+												"LTRL",// "RAIL",
+												"SAaN", "SAAN"
+												];
+		//---
+	//		railtype_flags:					bitmask(RAILTYPE_FLAG_PRECOMBINED);
+	//		curve_speed_multiplier:			?;
+	//		station_graphics:				RAILTYPE_STATION_MONORAIL;
+	//		construction_cost:				16; //double the rail cost
+	//		speed_limit:					200 mph;
+	//		acceleration_model:				ACC_MODEL_RAIL;
+	//		map_colour:						?;
+	//		requires_railtype_list:			?;
+	//		introduces_railtype_list:		?;
+	//		sort_order:						37;
+	//		maintenance_cost:				16;//double the rail cost
+	//		alternative_railtype_list:		["?"];
+			}
+		}
+	}
+
+	if ((param_axle_weight == 1 && loading_stage == LOADING_STAGE_RESERVE)) {
+/*		item(FEAT_RAILTYPES, railtype_mal_standard_gauge_rail) {
+			property {
+				label:							"SACN";
+			//-- Railtypes that locomotives of this railtype can be pulled over by an electric locomotive;
+			//-- If a railtype is also listed in "powered_railtype_list", this locomotive is primarily meant for that railtype and can travel on that railtype under its own power
+				compatible_railtype_list:		[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+														"SADN", "SAEN",// "SAFN",
+												"SBCN", "SBDN", "SBEN",// "SBFN",
+												"SCCN", "SCDN", "SCEN",// "SCFN",
+												"SDCN", "SDDN", "SDEN",// "SDFN",
+												"SECN", "SEDN", "SEEN",// "SEFN",
+												"SFCN", "SFDN", "SFEN",// "SFFN",
+												"SGCN", "SGDN", "SGEN",// "SGFN",
+												"SHCN", "SHDN", "SHEN",// "SHFN",
+												"ELRL",
+												"SACE", "SADE", "SAEE",// "SAFE",
+												"SBCE", "SBDE", "SBEE",// "SBFE",
+												"SCCE", "SCDE", "SCEE",// "SCFE",
+												"SDCE", "SDDE", "SDEE",// "SDFE",
+												"SECE", "SEDE", "SEEE",// "SEFE",
+												"SFCE", "SFDE", "SFEE",// "SFFE",
+												"SGCE", "SGDE", "SGEE",// "SGFE",
+												"SHCE", "SHDE", "SHEE",// "SHFE",
+												//"MTRO",
+												"SAC3", "SAD3", "SAE3",// "SAF3",
+												"SACZ", "SADZ", "SAEZ",// "SAFZ",
+												"SAC4", "SAD4", "SAE4",// "SAF4",
+												"SACY", "SADY", "SAEY",// "SAFY",
+												"SACT", "SADT", "SAET",// "SAFT",
+												"SACD", "SADD", "SAED",// "SAFD",
+												"SACd", "SADd", "SAEd",// "SAFd",
+												"SACA", "SADA", "SAEA",// "SAFA",
+												"SACa", "SADa", "SAEa",// "SAFa",
+												"SRCN", "SRDN", "SREN",// "SRFN",
+												"SRCE", "SRDE", "SREE",// "SRFE",
+												"sSFt", "sUFt", "skFt",
+												"sdFN", "scFN", "siFN", "spFN",
+												"sdFE", "scFE", "siFE", "spFE"
+												];
+		//-- Railtypes that locomotives of this railtype can travel on under its own power;
+		//-- If the locomotive is not electric, all railtypes listed in "compatible_railtype_list" must be listed here as well
+			powered_railtype_list:			[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+												"SACN", "SADN", "SAEN",// "SAFN",
+												"SBCN", "SBDN", "SBEN",// "SBFN",
+												"SCCN", "SCDN", "SCEN",// "SCFN",
+												"SDCN", "SDDN", "SDEN",// "SDFN",
+												"SECN", "SEDN", "SEEN",// "SEFN",
+												"SFCN", "SFDN", "SFEN",// "SFFN",
+												"SGCN", "SGDN", "SGEN",// "SGFN",
+												"SHCN", "SHDN", "SHEN",// "SHFN",
+												//"ELRL",
+												"SACE", "SADE", "SAEE",// "SAFE",
+												"SBCE", "SBDE", "SBEE",// "SBFE",
+												"SCCE", "SCDE", "SCEE",// "SCFE",
+												"SDCE", "SDDE", "SDEE",// "SDFE",
+												"SECE", "SEDE", "SEEE",// "SEFE",
+												"SFCE", "SFDE", "SFEE",// "SFFE",
+												"SGCE", "SGDE", "SGEE",// "SGFE",
+												"SHCE", "SHDE", "SHEE",// "SHFE",
+												"MTRO",
+												"SAC3", "SAD3", "SAE3",// "SAF3",
+												"SACZ", "SADZ", "SAEZ",// "SAFZ",
+												"SAC4", "SAD4", "SAE4",// "SAF4",
+												"SACY", "SADY", "SAEY",// "SAFY",
+												"SACT", "SADT", "SAET",// "SAFT",
+												"SACD", "SADD", "SAED",// "SAFD",
+												"SACd", "SADd", "SAEd",// "SAFd",
+												"SACA", "SADA", "SAEA",// "SAFA",
+												"SACa", "SADa", "SAEa",// "SAFa",
+												"SRCN", "SRDN", "SREN",// "SRFN",
+												"SRCE", "SRDE", "SREE",// "SRFE",
+												"sSFt", "sUFt", "skFt",
+												"sdFN", "scFN", "siFN", "spFN",
+												"sdFE", "scFE", "siFE", "spFE"
+												];
+		//---
+		//		railtype_flags:					bitmask(RAILTYPE_FLAG_PRECOMBINED);
+		//		curve_speed_multiplier:			?;
+		//		station_graphics:				RAILTYPE_STATION_MONORAIL;
+		//		construction_cost:				16; //double the rail cost
+		//		speed_limit:					200 mph;
+		//		acceleration_model:				ACC_MODEL_RAIL;
+		//		map_colour:						?;
+		//		requires_railtype_list:			?;
+		//		introduces_railtype_list:		?;
+		//		sort_order:						37;
+		//		maintenance_cost:				16;//double the rail cost
+		//		alternative_railtype_list:		["?"];
+			}
+		}
+	
+*/
+
+		item(FEAT_RAILTYPES, railtype_hal_standard_gauge_rail) {
+			property {
+				label:							"SADN";
+			//-- Railtypes that locomotives of this railtype can be pulled over by an electric locomotive;
+			//-- If a railtype is also listed in "powered_railtype_list", this locomotive is primarily meant for that railtype and can travel on that railtype under its own power
+				compatible_railtype_list:		[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+														"SADN", "SAEN",// "SAFN",
+														"SBDN", "SBEN",// "SBFN",
+														"SCDN", "SCEN",// "SCFN",
+														"SDDN", "SDEN",// "SDFN",
+														"SEDN", "SEEN",// "SEFN",
+														"SFDN", "SFEN",// "SFFN",
+														"SGDN", "SGEN",// "SGFN",
+														"SHDN", "SHEN",// "SHFN",
+												"ELRL",
+														"SADE", "SAEE",// "SAFE",
+														"SBDE", "SBEE",// "SBFE",
+														"SCDE", "SCEE",// "SCFE",
+														"SDDE", "SDEE",// "SDFE",
+														"SEDE", "SEEE",// "SEFE",
+														"SFDE", "SFEE",// "SFFE",
+														"SGDE", "SGEE",// "SGFE",
+														"SHDE", "SHEE",// "SHFE",
+												//"MTRO",
+														"SAD3", "SAE3",// "SAF3",
+														"SADZ", "SAEZ",// "SAFZ",
+														"SAD4", "SAE4",// "SAF4",
+														"SADY", "SAEY",// "SAFY",
+														"SADT", "SAET",// "SAFT",
+														"SADD", "SAED",// "SAFD",
+														"SADd", "SAEd",// "SAFd",
+														"SADA", "SAEA",// "SAFA",
+														"SADa", "SAEa",// "SAFa",
+														"SRDN", "SREN",// "SRFN",
+														"SRDE", "SREE",// "SRFE",
+														"SRDT", "SRET",// "SRFT",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//-- Railtypes that locomotives of this railtype can travel on under its own power;
+		//-- If the locomotive is not electric, all railtypes listed in "compatible_railtype_list" must be listed here as well
+			powered_railtype_list:			[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+														"SADN", "SAEN",// "SAFN",
+														"SBDN", "SBEN",// "SBFN",
+														"SCDN", "SCEN",// "SCFN",
+														"SDDN", "SDEN",// "SDFN",
+														"SEDN", "SEEN",// "SEFN",
+														"SFDN", "SFEN",// "SFFN",
+														"SGDN", "SGEN",// "SGFN",
+														"SHDN", "SHEN",// "SHFN",
+												//"ELRL",
+														"SADE", "SAEE",// "SAFE",
+														"SBDE", "SBEE",// "SBFE",
+														"SCDE", "SCEE",// "SCFE",
+														"SDDE", "SDEE",// "SDFE",
+														"SEDE", "SEEE",// "SEFE",
+														"SFDE", "SFEE",// "SFFE",
+														"SGDE", "SGEE",// "SGFE",
+														"SHDE", "SHEE",// "SHFE",
+												"MTRO",
+														"SAD3", "SAE3",// "SAF3",
+														"SADZ", "SAEZ",// "SAFZ",
+														"SAD4", "SAE4",// "SAF4",
+														"SADY", "SAEY",// "SAFY",
+														"SADT", "SAET",// "SAFT",
+														"SADD", "SAED",// "SAFD",
+														"SADd", "SAEd",// "SAFd",
+														"SADA", "SAEA",// "SAFA",
+														"SADa", "SAEa",// "SAFa",
+														"SRDN", "SREN",// "SRFN",
+														"SRDE", "SREE",// "SRFE",
+														"SRDT", "SRET",// "SRFT",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//---
+		//		railtype_flags:					bitmask(RAILTYPE_FLAG_PRECOMBINED);
+		//		curve_speed_multiplier:			?;
+		//		station_graphics:				RAILTYPE_STATION_MONORAIL;
+		//		construction_cost:				16; //double the rail cost
+		//		speed_limit:					200 mph;
+		//		acceleration_model:				ACC_MODEL_RAIL;
+		//		map_colour:						?;
+		//		requires_railtype_list:			?;
+		//		introduces_railtype_list:		?;
+		//		sort_order:						37;
+		//		maintenance_cost:				16;//double the rail cost
+		//		alternative_railtype_list:		["?"];
+			}
+		}
+		
+		item(FEAT_RAILTYPES, railtype_vhal_standard_gauge_rail) {
+			property {
+				label:							"SAEN";
+			//-- Railtypes that locomotives of this railtype can be pulled over by an electric locomotive;
+			//-- If a railtype is also listed in "powered_railtype_list", this locomotive is primarily meant for that railtype and can travel on that railtype under its own power
+				compatible_railtype_list:		[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+																"SAEN",// "SAFN",
+																"SBEN",// "SBFN",
+																"SCEN",// "SCFN",
+																"SDEN",// "SDFN",
+																"SEEN",// "SEFN",
+																"SFEN",// "SFFN",
+																"SGEN",// "SGFN",
+																"SHEN",// "SHFN",
+												"ELRL",
+																"SAEE",// "SAFE",
+																"SBEE",// "SBFE",
+																"SCEE",// "SCFE",
+																"SDEE",// "SDFE",
+																"SEEE",// "SEFE",
+																"SFEE",// "SFFE",
+																"SGEE",// "SGFE",
+																"SHEE",// "SHFE",
+												//"MTRO",
+																"SAE3",// "SAF3",
+																"SAEZ",// "SAFZ",
+																"SAE4",// "SAF4",
+																"SAEY",// "SAFY",
+																"SAET",// "SAFT",
+																"SAED",// "SAFD",
+																"SAEd",// "SAFd",
+																"SAEA",// "SAFA",
+																"SAEa",// "SAFa",
+																"SREN",// "SRFN",
+																"SREE",// "SRFN",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//-- Railtypes that locomotives of this railtype can travel on under its own power;
+		//-- If the locomotive is not electric, all railtypes listed in "compatible_railtype_list" must be listed here as well
+			powered_railtype_list:			[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+																"SAEN",// "SAFN",
+																"SBEN",// "SBFN",
+																"SCEN",// "SCFN",
+																"SDEN",// "SDFN",
+																"SEEN",// "SEFN",
+																"SFEN",// "SFFN",
+																"SGEN",// "SGFN",
+																"SHEN",// "SHFN",
+												"ELRL",
+																"SAEE",// "SAFE",
+																"SBEE",// "SBFE",
+																"SCEE",// "SCFE",
+																"SDEE",// "SDFE",
+																"SEEE",// "SEFE",
+																"SFEE",// "SFFE",
+																"SGEE",// "SGFE",
+																"SHEE",// "SHFE",
+												//"MTRO",
+																"SAE3",// "SAF3",
+																"SAEZ",// "SAFZ",
+																"SAE4",// "SAF4",
+																"SAEY",// "SAFY",
+																"SAET",// "SAFT",
+																"SAED",// "SAFD",
+																"SAEd",// "SAFd",
+																"SAEA",// "SAFA",
+																"SAEa",// "SAFa",
+																"SREN",// "SRFN",
+																"SREE",// "SRFN",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//---
+		//		railtype_flags:					bitmask(RAILTYPE_FLAG_PRECOMBINED);
+		//		curve_speed_multiplier:			?;
+		//		station_graphics:				RAILTYPE_STATION_MONORAIL;
+		//		construction_cost:				16; //double the rail cost
+		//		speed_limit:					200 mph;
+		//		acceleration_model:				ACC_MODEL_RAIL;
+		//		map_colour:						?;
+		//		requires_railtype_list:			?;
+		//		introduces_railtype_list:		?;
+		//		sort_order:						37;
+		//		maintenance_cost:				16;//double the rail cost
+		//		alternative_railtype_list:		["?"];
+			}
+		}
+	}
+		
+	if ((param_axle_weight == 2 && loading_stage == LOADING_STAGE_RESERVE)) {
+		item(FEAT_RAILTYPES, railtype_mal_standard_gauge_rail) {
+			property {
+				label:							"SACN";
+			//-- Railtypes that locomotives of this railtype can be pulled over by an electric locomotive;
+			//-- If a railtype is also listed in "powered_railtype_list", this locomotive is primarily meant for that railtype and can travel on that railtype under its own power
+				compatible_railtype_list:		[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+														"SADN", "SAEN", "SAFN",
+												"SBCN", "SBDN", "SBEN", "SBFN",
+												"SCCN", "SCDN", "SCEN", "SCFN",
+												"SDCN", "SDDN", "SDEN", "SDFN",
+												"SECN", "SEDN", "SEEN", "SEFN",
+												"SFCN", "SFDN", "SFEN", "SFFN",
+												"SGCN", "SGDN", "SGEN", "SGFN",
+												"SHCN", "SHDN", "SHEN", "SHFN",
+												"ELRL",
+												"SACE", "SADE", "SAEE", "SAFE",
+												"SBCE", "SBDE", "SBEE", "SBFE",
+												"SCCE", "SCDE", "SCEE", "SCFE",
+												"SDCE", "SDDE", "SDEE", "SDFE",
+												"SECE", "SEDE", "SEEE", "SEFE",
+												"SFCE", "SFDE", "SFEE", "SFFE",
+												"SGCE", "SGDE", "SGEE", "SGFE",
+												"SHCE", "SHDE", "SHEE", "SHFE",
+												//"MTRO",
+												"SAC3", "SAD3", "SAE3", "SAF3",
+												"SACZ", "SADZ", "SAEZ", "SAFZ",
+												"SAC4", "SAD4", "SAE4", "SAF4",
+												"SACY", "SADY", "SAEY", "SAFY",
+												"SACT", "SADT", "SAET", "SAFT",
+												"SACD", "SADD", "SAED", "SAFD",
+												"SACd", "SADd", "SAEd", "SAFd",
+												"SACA", "SADA", "SAEA", "SAFA",
+												"SACa", "SADa", "SAEa", "SAFa",
+												"SRCN", "SRDN", "SREN", "SRFN",
+												"SRCE", "SRDE", "SREE", "SRFE",
+												"sSFt", "sUFt", "skFt",
+												"sdFN", "scFN", "siFN", "spFN",
+												"sdFE", "scFE", "siFE", "spFE"
+												];
+		//-- Railtypes that locomotives of this railtype can travel on under its own power;
+		//-- If the locomotive is not electric, all railtypes listed in "compatible_railtype_list" must be listed here as well
+			powered_railtype_list:			[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+												"SACN", "SADN", "SAEN", "SAFN",
+												"SBCN", "SBDN", "SBEN", "SBFN",
+												"SCCN", "SCDN", "SCEN", "SCFN",
+												"SDCN", "SDDN", "SDEN", "SDFN",
+												"SECN", "SEDN", "SEEN", "SEFN",
+												"SFCN", "SFDN", "SFEN", "SFFN",
+												"SGCN", "SGDN", "SGEN", "SGFN",
+												"SHCN", "SHDN", "SHEN", "SHFN",
+												//"ELRL",
+												"SACE", "SADE", "SAEE", "SAFE",
+												"SBCE", "SBDE", "SBEE", "SBFE",
+												"SCCE", "SCDE", "SCEE", "SCFE",
+												"SDCE", "SDDE", "SDEE", "SDFE",
+												"SECE", "SEDE", "SEEE", "SEFE",
+												"SFCE", "SFDE", "SFEE", "SFFE",
+												"SGCE", "SGDE", "SGEE", "SGFE",
+												"SHCE", "SHDE", "SHEE", "SHFE",
+												"MTRO",
+												"SAC3", "SAD3", "SAE3", "SAF3",
+												"SACZ", "SADZ", "SAEZ", "SAFZ",
+												"SAC4", "SAD4", "SAE4", "SAF4",
+												"SACY", "SADY", "SAEY", "SAFY",
+												"SACT", "SADT", "SAET", "SAFT",
+												"SACD", "SADD", "SAED", "SAFD",
+												"SACd", "SADd", "SAEd", "SAFd",
+												"SACA", "SADA", "SAEA", "SAFA",
+												"SACa", "SADa", "SAEa", "SAFa",
+												"SRCN", "SRDN", "SREN", "SRFN",
+												"SRCE", "SRDE", "SREE", "SRFE",
+												"sSFt", "sUFt", "skFt",
+												"sdFN", "scFN", "siFN", "spFN",
+												"sdFE", "scFE", "siFE", "spFE"
+												];
+		//---
+		//		railtype_flags:					bitmask(RAILTYPE_FLAG_PRECOMBINED);
+		//		curve_speed_multiplier:			?;
+		//		station_graphics:				RAILTYPE_STATION_MONORAIL;
+		//		construction_cost:				16; //double the rail cost
+		//		speed_limit:					200 mph;
+		//		acceleration_model:				ACC_MODEL_RAIL;
+		//		map_colour:						?;
+		//		requires_railtype_list:			?;
+		//		introduces_railtype_list:		?;
+		//		sort_order:						37;
+		//		maintenance_cost:				16;//double the rail cost
+		//		alternative_railtype_list:		["?"];
+			}
+		}
+		
+		item(FEAT_RAILTYPES, railtype_hal_standard_gauge_rail) {
+			property {
+				label:							"SADN";
+			//-- Railtypes that locomotives of this railtype can be pulled over by an electric locomotive;
+			//-- If a railtype is also listed in "powered_railtype_list", this locomotive is primarily meant for that railtype and can travel on that railtype under its own power
+				compatible_railtype_list:		[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+														"SADN", "SAEN", "SAFN",
+														"SBDN", "SBEN", "SBFN",
+														"SCDN", "SCEN", "SCFN",
+														"SDDN", "SDEN", "SDFN",
+														"SEDN", "SEEN", "SEFN",
+														"SFDN", "SFEN", "SFFN",
+														"SGDN", "SGEN", "SGFN",
+														"SHDN", "SHEN", "SHFN",
+												"ELRL",
+														"SADE", "SAEE", "SAFE",
+														"SBDE", "SBEE", "SBFE",
+														"SCDE", "SCEE", "SCFE",
+														"SDDE", "SDEE", "SDFE",
+														"SEDE", "SEEE", "SEFE",
+														"SFDE", "SFEE", "SFFE",
+														"SGDE", "SGEE", "SGFE",
+														"SHDE", "SHEE", "SHFE",
+												//"MTRO",
+														"SAD3", "SAE3", "SAF3",
+														"SADZ", "SAEZ", "SAFZ",
+														"SAD4", "SAE4", "SAF4",
+														"SADY", "SAEY", "SAFY",
+														"SADT", "SAET", "SAFT",
+														"SADD", "SAED", "SAFD",
+														"SADd", "SAEd", "SAFd",
+														"SADA", "SAEA", "SAFA",
+														"SADa", "SAEa", "SAFa",
+														"SRDN", "SREN", "SRFN",
+														"SRDE", "SREE", "SRFE",
+														"SRDT", "SRET", "SRFT",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//-- Railtypes that locomotives of this railtype can travel on under its own power;
+		//-- If the locomotive is not electric, all railtypes listed in "compatible_railtype_list" must be listed here as well
+			powered_railtype_list:			[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+														"SADN", "SAEN", "SAFN",
+														"SBDN", "SBEN", "SBFN",
+														"SCDN", "SCEN", "SCFN",
+														"SDDN", "SDEN", "SDFN",
+														"SEDN", "SEEN", "SEFN",
+														"SFDN", "SFEN", "SFFN",
+														"SGDN", "SGEN", "SGFN",
+														"SHDN", "SHEN", "SHFN",
+												//"ELRL",
+														"SADE", "SAEE", "SAFE",
+														"SBDE", "SBEE", "SBFE",
+														"SCDE", "SCEE", "SCFE",
+														"SDDE", "SDEE", "SDFE",
+														"SEDE", "SEEE", "SEFE",
+														"SFDE", "SFEE", "SFFE",
+														"SGDE", "SGEE", "SGFE",
+														"SHDE", "SHEE", "SHFE",
+												"MTRO",
+														"SAD3", "SAE3", "SAF3",
+														"SADZ", "SAEZ", "SAFZ",
+														"SAD4", "SAE4", "SAF4",
+														"SADY", "SAEY", "SAFY",
+														"SADT", "SAET", "SAFT",
+														"SADD", "SAED", "SAFD",
+														"SADd", "SAEd", "SAFd",
+														"SADA", "SAEA", "SAFA",
+														"SADa", "SAEa", "SAFa",
+														"SRDN", "SREN", "SRFN",
+														"SRDE", "SREE", "SRFE",
+														"SRDT", "SRET", "SRFT",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//---
+		//		railtype_flags:					bitmask(RAILTYPE_FLAG_PRECOMBINED);
+		//		curve_speed_multiplier:			?;
+		//		station_graphics:				RAILTYPE_STATION_MONORAIL;
+		//		construction_cost:				16; //double the rail cost
+		//		speed_limit:					200 mph;
+		//		acceleration_model:				ACC_MODEL_RAIL;
+		//		map_colour:						?;
+		//		requires_railtype_list:			?;
+		//		introduces_railtype_list:		?;
+		//		sort_order:						37;
+		//		maintenance_cost:				16;//double the rail cost
+		//		alternative_railtype_list:		["?"];
+			}
+		}
+		
+		item(FEAT_RAILTYPES, railtype_vhal_standard_gauge_rail) {
+			property {
+				label:							"SAEN";
+			//-- Railtypes that locomotives of this railtype can be pulled over by an electric locomotive;
+			//-- If a railtype is also listed in "powered_railtype_list", this locomotive is primarily meant for that railtype and can travel on that railtype under its own power
+				compatible_railtype_list:		[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+																"SAEN", "SAFN",
+																"SBEN", "SBFN",
+																"SCEN", "SCFN",
+																"SDEN", "SDFN",
+																"SEEN", "SEFN",
+																"SFEN", "SFFN",
+																"SGEN", "SGFN",
+																"SHEN", "SHFN",
+												"ELRL",
+																"SAEE", "SAFE",
+																"SBEE", "SBFE",
+																"SCEE", "SCFE",
+																"SDEE", "SDFE",
+																"SEEE", "SEFE",
+																"SFEE", "SFFE",
+																"SGEE", "SGFE",
+																"SHEE", "SHFE",
+												//"MTRO",
+																"SAE3", "SAF3",
+																"SAEZ", "SAFZ",
+																"SAE4", "SAF4",
+																"SAEY", "SAFY",
+																"SAET", "SAFT",
+																"SAED", "SAFD",
+																"SAEd", "SAFd",
+																"SAEA", "SAFA",
+																"SAEa", "SAFa",
+																"SREN", "SRFN",
+																"SREE", "SRFE",
+																"SRET", "SRFT",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//-- Railtypes that locomotives of this railtype can travel on under its own power;
+		//-- If the locomotive is not electric, all railtypes listed in "compatible_railtype_list" must be listed here as well
+			powered_railtype_list:			[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+																"SAEN", "SAFN",
+																"SBEN", "SBFN",
+																"SCEN", "SCFN",
+																"SDEN", "SDFN",
+																"SEEN", "SEFN",
+																"SFEN", "SFFN",
+																"SGEN", "SGFN",
+																"SHEN", "SHFN",
+												"ELRL",
+																"SAEE", "SAFE",
+																"SBEE", "SBFE",
+																"SCEE", "SCFE",
+																"SDEE", "SDFE",
+																"SEEE", "SEFE",
+																"SFEE", "SFFE",
+																"SGEE", "SGFE",
+																"SHEE", "SHFE",
+												//"MTRO",
+																"SAE3", "SAF3",
+																"SAEZ", "SAFZ",
+																"SAE4", "SAF4",
+																"SAEY", "SAFY",
+																"SAET", "SAFT",
+																"SAED", "SAFD",
+																"SAEd", "SAFd",
+																"SAEA", "SAFA",
+																"SAEa", "SAFa",
+																"SREN", "SRFN",
+																"SREE", "SRFE",
+																"SRET", "SRFT",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//---
+		//		railtype_flags:					bitmask(RAILTYPE_FLAG_PRECOMBINED);
+		//		curve_speed_multiplier:			?;
+		//		station_graphics:				RAILTYPE_STATION_MONORAIL;
+		//		construction_cost:				16; //double the rail cost
+		//		speed_limit:					200 mph;
+		//		acceleration_model:				ACC_MODEL_RAIL;
+		//		map_colour:						?;
+		//		requires_railtype_list:			?;
+		//		introduces_railtype_list:		?;
+		//		sort_order:						37;
+		//		maintenance_cost:				16;//double the rail cost
+		//		alternative_railtype_list:		["?"];
+			}
+		}
+
+		item(FEAT_RAILTYPES, railtype_vhal_standard_gauge_rail) {
+			property {
+				label:							"SAFN";
+			//-- Railtypes that locomotives of this railtype can be pulled over by an electric locomotive;
+			//-- If a railtype is also listed in "powered_railtype_list", this locomotive is primarily meant for that railtype and can travel on that railtype under its own power
+				compatible_railtype_list:		[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+																		"SAFN",
+																		"SBFN",
+																		"SCFN",
+																		"SDFN",
+																		"SEFN",
+																		"SFFN",
+																		"SGFN",
+																		"SHFN",
+												"ELRL",
+																		"SAFE",
+																		"SBFE",
+																		"SCFE",
+																		"SDFE",
+																		"SEFE",
+																		"SFFE",
+																		"SGFE",
+																		"SHFE",
+												//"MTRO",
+																		"SAF3",
+																		"SAFZ",
+																		"SAF4",
+																		"SAFY",
+																		"SAFT",
+																		"SAFD",
+																		"SAFd",
+																		"SAFA",
+																		"SAFa",
+																		"SRFN",
+																		"SRFE",
+																		"SRFT",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//-- Railtypes that locomotives of this railtype can travel on under its own power;
+		//-- If the locomotive is not electric, all railtypes listed in "compatible_railtype_list" must be listed here as well
+			powered_railtype_list:			[
+											//-- Standard Guage Rail, at least 
+												//"RAIL",
+																		"SAFN",
+																		"SBFN",
+																		"SCFN",
+																		"SDFN",
+																		"SEFN",
+																		"SFFN",
+																		"SGFN",
+																		"SHFN",
+												"ELRL",
+																		"SAFE",
+																		"SBFE",
+																		"SCFE",
+																		"SDFE",
+																		"SEFE",
+																		"SFFE",
+																		"SGFE",
+																		"SHFE",
+												//"MTRO",
+																		"SAF3",
+																		"SAFZ",
+																		"SAF4",
+																		"SAFY",
+																		"SAFT",
+																		"SAFD",
+																		"SAFd",
+																		"SAFA",
+																		"SAFa",
+																		"SRFN",
+																		"SRFE",
+																		"SRFT",
+														"sUFt", "skFt",
+														"scFN", "siFN", "spFN",
+														"scFE", "siFE", "spFE"
+												];
+		//---
+		//		railtype_flags:					bitmask(RAILTYPE_FLAG_PRECOMBINED);
+		//		curve_speed_multiplier:			?;
+		//		station_graphics:				RAILTYPE_STATION_MONORAIL;
+		//		construction_cost:				16; //double the rail cost
+		//		speed_limit:					200 mph;
+		//		acceleration_model:				ACC_MODEL_RAIL;
+		//		map_colour:						?;
+		//		requires_railtype_list:			?;
+		//		introduces_railtype_list:		?;
+		//		sort_order:						37;
+		//		maintenance_cost:				16;//double the rail cost
+		//		alternative_railtype_list:		["?"];
+			}
+		}
+	}
