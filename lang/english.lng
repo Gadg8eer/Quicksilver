@@ -1,6 +1,7 @@
 ﻿##grflangid 0x01
 STR_GRF_NAME													:Quicksilver 1.0
 STR_GRF_DESC													:{}{ORANGE}Iron Horse 3 {SILVER}"Quicksilver"{ORANGE} Add-On{}{}{BLACK}GPL v2, graphics by Pikkabird, coded by Gwyd. Updated by Gadg8eer.
+STR_WEBSITE														:https://github.com/Gadg8eer/quicksilver
 STR_PARAM_COLOUR_SCHEME_NAME									:Colour scheme
 STR_PARAM_COLOUR_SCHEME_DESC									:Select the type of colour scheme to use
 STR_PARAM_COLOUR_SCHEME_1CC										:One company color
@@ -17,7 +18,7 @@ STR_ERROR_AXLE_WEIGHT											:Uh oh! Looks like you encountered a bug! This m
 STR_TEXT_JOKER													:{BLACK}Role: {GOLD}Joker
 STR_TEXT_EXPRESS												:{BLACK}Role: {GOLD}General Purpose / Express
 
-STR_quicksilver_0												:4-6-2 Quicksilver (Thermonuclear)
+STR_quicksilver_0												:4-6-2 Quicksilver {SILVER}(Thermonuclear)
 STR_ADDITIONAL_TEXT_quicksilver_0								:A thermonuclear steam engine using liquid mercury as coolant, based on streamlined steam locomotives of the 1930's like LNER A4, LMS Coronation, NYC Mercury K-5b, etc.
 STR_CANNOT_START_quicksilver_0									:
 STR_CANNOT_ATTACH_OTHER_quicksilver_0							:
